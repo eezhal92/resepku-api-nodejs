@@ -1,0 +1,32 @@
+version: '2'
+services:
+  web:
+    build: .
+    links:
+      - db
+      - redis
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/src/app/
+    environment:
+      NODE_ENV: development
+      MONGO_URL: mongodb://db:27017/resepku
+    networks:
+      - appnet
+  db:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    networks:
+      - appnet
+  redis:
+    image: redis:alpine
+    networks:
+      - appnet
+networks:
+  appnet:
+    driver: "bridge"
+volumes:
+  data:
+    driver: "local"

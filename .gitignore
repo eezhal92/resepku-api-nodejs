@@ -1,0 +1,12 @@
+# nightwatch test report
+tests/reports
+
+# jest test coverage
+tests/coverage
+
+# you know lah
+node_modules
+
+# logs
+selenium-debug.log
+npm-debug.log

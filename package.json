@@ -1,0 +1,38 @@
+{
+  "name": "perpus",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "bluebird": "^3.4.7",
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "express-validation": "^1.0.1",
+    "joi": "^10.1.0",
+    "mongoose": "^4.7.5",
+    "morgan": "^1.7.0",
+    "util": "^0.10.3"
+  },
+  "scripts": {
+    "start": "NODE_ENV=development nodemon --exec \"babel-node index.js\"",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-core": "^6.21.0",
+    "babel-jest": "^18.0.0",
+    "babel-plugin-transform-async-to-generator": "^6.16.0",
+    "babel-preset-es2015": "^6.18.0",
+    "faker": "^3.1.0",
+    "jest": "^18.1.0",
+    "nodemon": "^1.11.0",
+    "supertest": "^2.0.1"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "verbose": true,
+    "setupFiles": [
+      "./tests/setup.js"
+    ]
+  }
+}
