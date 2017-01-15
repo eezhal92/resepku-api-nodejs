@@ -14,7 +14,7 @@
     "util": "^0.10.3"
   },
   "scripts": {
-    "start": "NODE_ENV=development nodemon --exec \"babel-node index.js\"",
+    "start": "NODE_ENV=development NODE_PATH=src nodemon --exec \"babel-node index.js\"",
     "test": "jest"
   },
   "devDependencies": {

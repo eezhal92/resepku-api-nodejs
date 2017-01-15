@@ -3,7 +3,7 @@
   "plugins": ["transform-async-to-generator"],
   "env": {
     "production": {
-      "presets": ["es2015", { modules: false }],
+      "presets": ["es2015", { modules: false }]
     }
   }
 }
