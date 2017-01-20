@@ -1,4 +1,4 @@
-import { Recipe } from '../../../../src/models';
+import { Recipe } from 'models';
 
 const recipes = [
   {

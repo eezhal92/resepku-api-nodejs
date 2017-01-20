@@ -1,4 +1,4 @@
-import app from './server';
+import app from './app';
 import mongoose from 'mongoose';
 import BluebirdPromise from 'bluebird';
 

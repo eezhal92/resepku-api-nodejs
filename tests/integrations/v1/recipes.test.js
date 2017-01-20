@@ -1,9 +1,9 @@
 import supertest from 'supertest';
 
-import app from '../../../src/server';
+import app from 'app';
 
 import { setUpDB, tearDownDB } from './db';
-import { Recipe } from '../../../src/models';
+import { Recipe } from 'models';
 
 beforeAll(() => {
   return setUpDB();
