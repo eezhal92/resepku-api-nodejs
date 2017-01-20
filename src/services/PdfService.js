@@ -27,8 +27,8 @@ export class PdfService {
     }
   }
 
-  async generateRecipePdf(recipe) {
-    const compiledFunction = await pug.compileFile('src/templates/pdf/recipe.pug');
+  async generateForRecipe(recipe) {
+    const compiledFunction = await this.options.pug.compileFile('src/templates/pdf/recipe.pug');
 
     const templateParams = {
       recipe,
@@ -36,7 +36,7 @@ export class PdfService {
 
     const html = await compiledFunction(templateParams);
 
-    return await this.generate(html, 'recipe.pdf');
+    return await this.generate(html, `recipe-${recipe.id}.pdf`);
   }
 }
 
@@ -46,5 +46,6 @@ export default new PdfService({
     phantomPath: './node_modules/phantomjs-prebuilt/bin/phantomjs',
     format: 'Letter',
   },
+  pug,
   absoluteFolderPath: publicFilesPath,
 });

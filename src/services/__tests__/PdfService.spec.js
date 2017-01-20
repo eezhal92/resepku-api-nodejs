@@ -75,4 +75,50 @@ describe('PdfService', () => {
 
   });
 
+  describe('generateForRecipe', () => {
+
+    it('return correct filename', async (done) => {
+      const toFileSpy = jest.fn((filename, cb) => {
+        cb()
+      });
+      const createSpy = jest.fn(() => ({
+        toFile: toFileSpy,
+      }));
+
+      const fakeHtmlPdf = {
+        create: createSpy,
+      };
+
+      const htmlPdfOptions = {
+        phantomPath: './node_modules/phantomjs-prebuilt/bin/phantomjs',
+        format: 'Letter',
+      };
+
+      const pugFake = {
+        compileFile:  jest.fn(() => (params) => {
+          return '<div>fake html</div>';
+        })
+      };
+
+      const pdfService = new PdfService({
+        htmlPdf: fakeHtmlPdf,
+        absoluteFolderPath: publicFilesPath,
+        htmlPdfOptions,
+        pug: pugFake,
+      });
+
+      const recipe = {
+        id: 1,
+        title: 'Jane Doe',
+      };
+
+      const filePath = await pdfService.generateForRecipe(recipe);
+
+      expect(filePath).toBe(`${publicFilesPath}/recipe-1.pdf`);
+
+      done();
+    });
+
+  });
+
 });

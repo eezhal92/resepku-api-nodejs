@@ -33,7 +33,7 @@ export class RecipeController {
   download = () => async (req, res) => {
     try {
       const recipe = await this.options.recipeService.findOne(req.params.id);
-      const filename = await this.options.pdfService.generateRecipePdf(recipe);
+      const filename = await this.options.pdfService.generateForRecipe(recipe);
 
       return res.download(filename);
     } catch (err) {
