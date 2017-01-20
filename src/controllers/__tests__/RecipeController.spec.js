@@ -1,4 +1,4 @@
-import RecipeController from '../RecipeController';
+import { RecipeController } from '../RecipeController';
 
 describe('RecipeController', () => {
   afterEach(() => {
@@ -14,7 +14,7 @@ describe('RecipeController', () => {
         { _id: 2, title: 'LoL' },
       ];
       const all = jest.fn(() => Promise.resolve(recipes));
-      const RecipeService = {
+      const FakeRecipeService = {
         all,
       };
 
@@ -25,12 +25,16 @@ describe('RecipeController', () => {
       jsonSpy = jest.fn();
       statusSpy = res.status = jest.fn(() => ({ json: jsonSpy }));
 
+      const controller = new RecipeController({
+        recipeService: FakeRecipeService,
+      });
+
+      const indexHandler = controller.index();
+
       // invoke Controller method to get route handler
       // it returns async function (which is return promise)
       // to handle asynchronous assertion, use return keyword
-      const index = RecipeController.index(RecipeService);
-
-      return index(req, res).then(() => {
+      return indexHandler(req, res).then(() => {
         expect(all).toBeCalled();
         expect(statusSpy).toBeCalledWith(200);
         expect(jsonSpy).toBeCalledWith(recipes);
@@ -45,7 +49,7 @@ describe('RecipeController', () => {
       // setup RecipeService's mock
       const recipe = { _id: 1, title: 'Meh' };
       const findOne = jest.fn(() => Promise.resolve(recipe));
-      const RecipeService = {
+      const FakeRecipeService = {
         findOne,
       };
 
@@ -59,9 +63,13 @@ describe('RecipeController', () => {
       jsonSpy = jest.fn();
       statusSpy = res.status = jest.fn(() => ({ json: jsonSpy }));
 
-      const show = RecipeController.show(RecipeService);
+      const controller = new RecipeController({
+        recipeService: FakeRecipeService,
+      });
 
-      return show(req, res).then(() => {
+      const showHandler = controller.show();
+
+      return showHandler(req, res).then(() => {
         expect(findOne).toBeCalled();
         expect(statusSpy).toBeCalledWith(200);
         expect(jsonSpy).toBeCalledWith(recipe);
@@ -71,7 +79,7 @@ describe('RecipeController', () => {
     it('should return error response with http response status 404', () => {
       // setup RecipeService's mock
       const findOne = jest.fn(() => Promise.reject('not_found'));
-      const RecipeService = {
+      const FakeRecipeService = {
         findOne,
       };
 
@@ -85,9 +93,13 @@ describe('RecipeController', () => {
       jsonSpy = jest.fn();
       statusSpy = res.status = jest.fn(() => ({ json: jsonSpy }));
 
-      const show = RecipeController.show(RecipeService);
+      const controller = new RecipeController({
+        recipeService: FakeRecipeService,
+      });
 
-      return show(req, res).then(() => {
+      const showHandler = controller.show();
+
+      return showHandler(req, res).then(() => {
         expect(findOne).toBeCalled();
         expect(statusSpy).toBeCalledWith(404);
         expect(jsonSpy).toBeCalledWith({
