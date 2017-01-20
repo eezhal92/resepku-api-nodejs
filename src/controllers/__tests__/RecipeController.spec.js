@@ -6,7 +6,6 @@ describe('RecipeController', () => {
   });
 
   describe('index', () => {
-
     it('should return all recipes with http response status 200', async () => {
       // setup RecipeService's mock
       const recipes = [
@@ -19,11 +18,11 @@ describe('RecipeController', () => {
       };
 
       // setup response spies
-      let req, res, jsonSpy, statusSpy;
+      const req = {};
+      const res = {};
 
-      req = res = {};
-      jsonSpy = jest.fn();
-      statusSpy = res.status = jest.fn(() => ({ json: jsonSpy }));
+      const jsonSpy = jest.fn();
+      const statusSpy = res.status = jest.fn(() => ({ json: jsonSpy }));
 
       const controller = new RecipeController({
         recipeService: FakeRecipeService,
@@ -40,11 +39,9 @@ describe('RecipeController', () => {
       expect(statusSpy).toBeCalledWith(200);
       expect(jsonSpy).toBeCalledWith(recipes);
     });
-
   });
 
   describe('show', () => {
-
     it('should return specific recipe when found and http response status 200', async () => {
       // setup RecipeService's mock
       const recipe = { _id: 1, title: 'Meh' };
@@ -54,14 +51,15 @@ describe('RecipeController', () => {
       };
 
       // setup response spies
-      let req, res, jsonSpy, statusSpy;
+      const req = {};
+      const res = {};
 
-      req = res = {};
       req.params = {
-        id: 1
+        id: 1,
       };
-      jsonSpy = jest.fn();
-      statusSpy = res.status = jest.fn(() => ({ json: jsonSpy }));
+
+      const jsonSpy = jest.fn();
+      const statusSpy = res.status = jest.fn(() => ({ json: jsonSpy }));
 
       const controller = new RecipeController({
         recipeService: FakeRecipeService,
@@ -84,14 +82,15 @@ describe('RecipeController', () => {
       };
 
       // setup response spies
-      let req, res, jsonSpy, statusSpy;
-
-      req = res = {};
-      req.params = {
-        id: 2
+      const req = {
+        params: {
+          id: 2,
+        },
       };
-      jsonSpy = jest.fn();
-      statusSpy = res.status = jest.fn(() => ({ json: jsonSpy }));
+      const res = {};
+
+      const jsonSpy = jest.fn();
+      const statusSpy = res.status = jest.fn(() => ({ json: jsonSpy }));
 
       const controller = new RecipeController({
         recipeService: FakeRecipeService,
@@ -108,7 +107,5 @@ describe('RecipeController', () => {
         code: 404,
       });
     });
-
   });
-
 });

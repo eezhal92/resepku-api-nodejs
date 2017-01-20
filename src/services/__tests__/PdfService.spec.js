@@ -2,12 +2,10 @@ import { PdfService } from '../PdfService';
 import { publicFilesPath } from '../../utils';
 
 describe('PdfService', () => {
-
   describe('generate', () => {
-
     it('generate pdf file from html', async () => {
       const toFileSpy = jest.fn((filename, cb) => {
-        cb()
+        cb();
       });
       const createSpy = jest.fn(() => ({
         toFile: toFileSpy,
@@ -72,14 +70,12 @@ describe('PdfService', () => {
         expect(err.message).toBe('Create PDF file failed');
       }
     });
-
   });
 
   describe('generateForRecipe', () => {
-
     it('return correct filename', async () => {
       const toFileSpy = jest.fn((filename, cb) => {
-        cb()
+        cb();
       });
       const createSpy = jest.fn(() => ({
         toFile: toFileSpy,
@@ -95,9 +91,7 @@ describe('PdfService', () => {
       };
 
       const pugFake = {
-        compileFile:  jest.fn(() => (params) => {
-          return '<div>fake html</div>';
-        })
+        compileFile: jest.fn(() => () => '<div>fake html</div>'),
       };
 
       const pdfService = new PdfService({
@@ -116,7 +110,5 @@ describe('PdfService', () => {
 
       expect(filePath).toBe(`${publicFilesPath}/recipe-1.pdf`);
     });
-
   });
-
 });

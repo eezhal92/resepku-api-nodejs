@@ -22,16 +22,16 @@ export const setUpDB = async () => {
     throw new Error(`unable to connect to database: ${MONGODB_URL}`);
   });
 
-  console.log('creating fixtures...')
+  console.log('creating fixtures...');
   await createRecipes();
-  console.log('fixtures created!')
+  console.log('fixtures created!');
 };
 
-export const tearDownDB = async (done) => {
+export const tearDownDB = async () => {
   console.log('tearing down...');
   await Recipe.remove({});
   mongoose.models = {};
   mongoose.modelSchemas = {};
   mongoose.connection.close();
-  console.log('db was dropped!')
+  console.log('db was dropped!');
 };

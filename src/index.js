@@ -1,9 +1,9 @@
-import app from './app';
 import mongoose from 'mongoose';
 import BluebirdPromise from 'bluebird';
+import app from './app';
 
 // use bluebird's Promise as default Promise
-Promise = BluebirdPromise;
+Promise = BluebirdPromise; // eslint-disable-line
 
 // activate long stac traces for debuggin
 Promise.longStackTraces();
@@ -12,9 +12,7 @@ Promise.longStackTraces();
 mongoose.Promise = Promise;
 
 Promise.resolve()
-  .then(() => {
-    return require('./models/setup');
-  })
+  .then(() => require('./models/setup')) // eslint-disable-line
   .then(() => {
     const PORT = process.env.PORT || 3000;
 

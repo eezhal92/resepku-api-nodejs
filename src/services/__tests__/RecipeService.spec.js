@@ -4,9 +4,7 @@ import { RecipeService } from '../RecipeService';
  * Just mock service deps
  */
 describe('RecipeService', () => {
-
   describe('all', async () => {
-
     it('should return all recipes', async () => {
       const recipes = [
         { _id: 1, title: 'Meh' },
@@ -18,18 +16,16 @@ describe('RecipeService', () => {
       };
 
       const recipeService = new RecipeService({
-        Recipe: fakeRecipeModel
+        Recipe: fakeRecipeModel,
       });
 
       const results = await recipeService.all();
       expect(results).toEqual(recipes);
       expect(findSpy).toBeCalled();
     });
-
   });
 
   describe('findOne', async () => {
-
     it('should throw Error when no data was found', async () => {
       const findByIdSpy = jest.fn(() => {
         throw new Error('xx');
@@ -39,7 +35,7 @@ describe('RecipeService', () => {
       };
 
       const recipeService = new RecipeService({
-        Recipe: fakeRecipeModel
+        Recipe: fakeRecipeModel,
       });
 
       try {
@@ -48,8 +44,5 @@ describe('RecipeService', () => {
         expect(err.message).toBe('Recipe not found');
       }
     });
-
   });
-
-
 });

@@ -6,7 +6,7 @@ import mongoose from 'mongoose';
 const RecipeSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true
+    required: true,
   },
   content: String,
   categories: [String],
@@ -26,4 +26,4 @@ RecipeSchema.statics = {
 
 };
 
-export default mongoose.model('Recipe', RecipeSchema);;
+export default mongoose.model('Recipe', RecipeSchema);

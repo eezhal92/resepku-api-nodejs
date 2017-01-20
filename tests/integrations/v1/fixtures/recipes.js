@@ -1,25 +1,25 @@
-import { Recipe } from 'models';
+import { Recipe } from 'models'; // eslint-disable-line
 
 const recipes = [
   {
     title: 'Gudeg',
-    categories: ['spicy', 'javanese']
+    categories: ['spicy', 'javanese'],
   },
   {
     title: 'Lalampa',
-    categories: ['spicy', 'unique']
+    categories: ['spicy', 'unique'],
   },
 ];
 
 const createRecipes = (cb) => {
   // create some data
-  const promises = recipes.map((recipe) => (
+  const promises = recipes.map(recipe => (
     Recipe(recipe).save((err) => {
       if (err) throw err;
     })
   ));
 
   return Promise.all(promises).then(cb);
-}
+};
 
 export default createRecipes;

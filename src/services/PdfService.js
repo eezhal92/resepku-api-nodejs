@@ -9,7 +9,7 @@ export class PdfService {
 
   async generate(template, fileName) {
     try {
-      let filePath = `${this.options.absoluteFolderPath}/${fileName}`;
+      const filePath = `${this.options.absoluteFolderPath}/${fileName}`;
 
       const compiledPdf = await this.options.htmlPdf.create(template, this.options.htmlPdfOptions);
 
@@ -21,7 +21,7 @@ export class PdfService {
         });
       });
 
-      return await getResult();
+      return getResult();
     } catch (err) {
       throw new Error(err.message);
     }
@@ -36,7 +36,7 @@ export class PdfService {
 
     const html = await compiledFunction(templateParams);
 
-    return await this.generate(html, `recipe-${recipe.id}.pdf`);
+    return this.generate(html, `recipe-${recipe.id}.pdf`);
   }
 }
 

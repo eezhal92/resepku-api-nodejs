@@ -2,7 +2,6 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import logger from 'morgan';
 import endpoints from './routes';
-import { Recipe } from './models';
 
 const app = express();
 

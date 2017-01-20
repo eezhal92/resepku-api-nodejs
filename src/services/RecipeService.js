@@ -6,11 +6,14 @@ export class RecipeService {
   }
 
   async all() {
+    let recipes;
     try {
-      return await this.options.Recipe.find({});
+      recipes = await this.options.Recipe.find({});
     } catch (err) {
-      console.log(err);
+      throw err;
     }
+
+    return recipes;
   }
 
   async findOne(id) {
