@@ -7,7 +7,7 @@ describe('RecipeController', () => {
 
   describe('index', () => {
 
-    it('should return all recipes with http response status 200', async (done) => {
+    it('should return all recipes with http response status 200', async () => {
       // setup RecipeService's mock
       const recipes = [
         { _id: 1, title: 'Meh' },
@@ -39,15 +39,13 @@ describe('RecipeController', () => {
       expect(all).toBeCalled();
       expect(statusSpy).toBeCalledWith(200);
       expect(jsonSpy).toBeCalledWith(recipes);
-
-      done();
     });
 
   });
 
   describe('show', () => {
 
-    it('should return specific recipe when found and http response status 200', async (done) => {
+    it('should return specific recipe when found and http response status 200', async () => {
       // setup RecipeService's mock
       const recipe = { _id: 1, title: 'Meh' };
       const findOne = jest.fn(() => Promise.resolve(recipe));
@@ -76,11 +74,9 @@ describe('RecipeController', () => {
       expect(findOne).toBeCalled();
       expect(statusSpy).toBeCalledWith(200);
       expect(jsonSpy).toBeCalledWith(recipe);
-
-      done();
     });
 
-    it('should return error response with http response status 404', async (done) => {
+    it('should return error response with http response status 404', async () => {
       // setup RecipeService's mock
       const findOne = jest.fn(() => Promise.reject('not_found'));
       const FakeRecipeService = {
@@ -111,8 +107,6 @@ describe('RecipeController', () => {
         statusText: 'NOT_FOUND',
         code: 404,
       });
-
-      done();
     });
 
   });

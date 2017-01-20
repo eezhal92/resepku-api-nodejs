@@ -5,7 +5,7 @@ describe('PdfService', () => {
 
   describe('generate', () => {
 
-    it('generate pdf file from html', async (done) => {
+    it('generate pdf file from html', async () => {
       const toFileSpy = jest.fn((filename, cb) => {
         cb()
       });
@@ -37,11 +37,9 @@ describe('PdfService', () => {
       expect(filePath).toBe(`${publicFilesPath}/foo.pdf`);
       expect(toFileSpy).toBeCalled();
       expect(createSpy).toBeCalledWith(html, htmlPdfOptions);
-
-      done();
     });
 
-    it('throw error when fail to create pdf file', () => {
+    it('throw error when fail to create pdf file', async () => {
       const toFileSpy = jest.fn((filename, cb) => {
         cb(new Error('Create PDF file failed'));
       });
@@ -68,16 +66,18 @@ describe('PdfService', () => {
         <div>Hello</div>
       `;
 
-      return pdfService.generate(html, 'foo.pdf').catch(err => {
+      try {
+        await pdfService.generate(html, 'foo.pdf');
+      } catch (err) {
         expect(err.message).toBe('Create PDF file failed');
-      });
+      }
     });
 
   });
 
   describe('generateForRecipe', () => {
 
-    it('return correct filename', async (done) => {
+    it('return correct filename', async () => {
       const toFileSpy = jest.fn((filename, cb) => {
         cb()
       });
@@ -115,8 +115,6 @@ describe('PdfService', () => {
       const filePath = await pdfService.generateForRecipe(recipe);
 
       expect(filePath).toBe(`${publicFilesPath}/recipe-1.pdf`);
-
-      done();
     });
 
   });

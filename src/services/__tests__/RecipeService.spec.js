@@ -7,7 +7,7 @@ describe('RecipeService', () => {
 
   describe('all', async () => {
 
-    it('should return all recipes', async (done) => {
+    it('should return all recipes', async () => {
       const recipes = [
         { _id: 1, title: 'Meh' },
         { _id: 2, title: 'LoL' },
@@ -24,15 +24,13 @@ describe('RecipeService', () => {
       const results = await recipeService.all();
       expect(results).toEqual(recipes);
       expect(findSpy).toBeCalled();
-
-      done();
     });
 
   });
 
-  describe('findOne', () => {
+  describe('findOne', async () => {
 
-    it('should throw Error when no data was found', () => {
+    it('should throw Error when no data was found', async () => {
       const findByIdSpy = jest.fn(() => {
         throw new Error('xx');
       });
@@ -44,9 +42,11 @@ describe('RecipeService', () => {
         Recipe: fakeRecipeModel
       });
 
-      return recipeService.findOne('smdf70sd234sdfsa').catch(err => {
-        expect(err.toString()).toBe('Error: Recipe not found');
-      });
+      try {
+        await recipeService.findOne('smdf70sd234sdfsa');
+      } catch (err) {
+        expect(err.message).toBe('Recipe not found');
+      }
     });
 
   });
