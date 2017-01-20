@@ -22,6 +22,23 @@ export default class RecipeController {
     };
   }
 
+  static download(RecipeService, PdfService) {
+    return async (req, res) => {
+      try {
+        const recipe = await RecipeService.findOne(req.params.id);
+        const filename = await PdfService.generateRecipePdf(recipe);
+
+        return res.download(filename);
+      } catch (err) {
+        console.log(err)
+        return res.status(500).json({
+          statusText: 'BAD SERVER',
+          code: 500,
+        });
+      }
+    };
+  }
+
   static create(RecipeService) {
     return async (req, res) => {
       return 'yey';
