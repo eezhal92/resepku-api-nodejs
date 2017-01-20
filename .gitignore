@@ -10,3 +10,7 @@ node_modules
 # logs
 selenium-debug.log
 npm-debug.log
+
+# assets
+public/**
+!public/**/.gitkeep
