@@ -23,7 +23,7 @@ export class PdfService {
 
       return await getResult();
     } catch (err) {
-      throw new Error(err.stackTrace);
+      throw new Error(err.message);
     }
   }
 

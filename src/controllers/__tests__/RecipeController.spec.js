@@ -7,7 +7,7 @@ describe('RecipeController', () => {
 
   describe('index', () => {
 
-    it('should return all recipes with http response status 200', () => {
+    it('should return all recipes with http response status 200', async (done) => {
       // setup RecipeService's mock
       const recipes = [
         { _id: 1, title: 'Meh' },
@@ -34,18 +34,20 @@ describe('RecipeController', () => {
       // invoke Controller method to get route handler
       // it returns async function (which is return promise)
       // to handle asynchronous assertion, use return keyword
-      return indexHandler(req, res).then(() => {
-        expect(all).toBeCalled();
-        expect(statusSpy).toBeCalledWith(200);
-        expect(jsonSpy).toBeCalledWith(recipes);
-      });
+      await indexHandler(req, res);
+
+      expect(all).toBeCalled();
+      expect(statusSpy).toBeCalledWith(200);
+      expect(jsonSpy).toBeCalledWith(recipes);
+
+      done();
     });
 
   });
 
   describe('show', () => {
 
-    it('should return specific recipe when found and http response status 200', () => {
+    it('should return specific recipe when found and http response status 200', async (done) => {
       // setup RecipeService's mock
       const recipe = { _id: 1, title: 'Meh' };
       const findOne = jest.fn(() => Promise.resolve(recipe));
@@ -69,14 +71,16 @@ describe('RecipeController', () => {
 
       const showHandler = controller.show();
 
-      return showHandler(req, res).then(() => {
-        expect(findOne).toBeCalled();
-        expect(statusSpy).toBeCalledWith(200);
-        expect(jsonSpy).toBeCalledWith(recipe);
-      });
+      await showHandler(req, res);
+
+      expect(findOne).toBeCalled();
+      expect(statusSpy).toBeCalledWith(200);
+      expect(jsonSpy).toBeCalledWith(recipe);
+
+      done();
     });
 
-    it('should return error response with http response status 404', () => {
+    it('should return error response with http response status 404', async (done) => {
       // setup RecipeService's mock
       const findOne = jest.fn(() => Promise.reject('not_found'));
       const FakeRecipeService = {
@@ -99,14 +103,16 @@ describe('RecipeController', () => {
 
       const showHandler = controller.show();
 
-      return showHandler(req, res).then(() => {
-        expect(findOne).toBeCalled();
-        expect(statusSpy).toBeCalledWith(404);
-        expect(jsonSpy).toBeCalledWith({
-          statusText: 'NOT_FOUND',
-          code: 404,
-        });
+      await showHandler(req, res);
+
+      expect(findOne).toBeCalled();
+      expect(statusSpy).toBeCalledWith(404);
+      expect(jsonSpy).toBeCalledWith({
+        statusText: 'NOT_FOUND',
+        code: 404,
       });
+
+      done();
     });
 
   });
