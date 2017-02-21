@@ -6,7 +6,7 @@ describe('RecipeController', () => {
   });
 
   describe('index', () => {
-    it('should return all recipes with http response status 200', async () => {
+    test('should return all recipes with http response status 200', async () => {
       // setup RecipeService's mock
       const recipes = [
         { _id: 1, title: 'Meh' },
